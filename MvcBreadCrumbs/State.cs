@@ -19,7 +19,7 @@ namespace MvcBreadCrumbs
         {
 
             var key =
-                string.Join(",", context.RouteData.Values.Select(x => string.Format("{0}={1}", x.Key, x.Value)))
+                context.HttpContext.Request.Url.ToString()
                 .ToLower()
                 .GetHashCode();
 
@@ -42,7 +42,8 @@ namespace MvcBreadCrumbs
                 Crumbs = newCrumbs;
             }
                 
-            Current = new StateEntry().WithKey(key).SetContext(context);
+            Current = new StateEntry().WithKey(key)
+                .SetContext(context).WithUrl(context.HttpContext.Request.Url.ToString());
             Crumbs.Add(Current);
 
         }
@@ -60,10 +61,17 @@ namespace MvcBreadCrumbs
         public ActionExecutingContext Context { get; private set; }
         public string Label { get; set; }
         public int Key { get; set; }
+        public string Url { get; set; }
 
         public StateEntry WithKey(int key)
         {
             Key = key;
+            return this;
+        }
+
+        public StateEntry WithUrl(string url)
+        {
+            Url = url;
             return this;
         }
 

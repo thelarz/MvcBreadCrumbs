@@ -14,3 +14,5 @@ C:\projects\MvcBreadCrumbs\MvcBreadCrumbs\bin\Debug\System.Web.Mvc.xml
 C:\projects\MvcBreadCrumbs\MvcBreadCrumbs\obj\Debug\MvcBreadCrumbs.csprojResolveAssemblyReference.cache
 C:\projects\MvcBreadCrumbs\MvcBreadCrumbs\obj\Debug\MvcBreadCrumbs.dll
 C:\projects\MvcBreadCrumbs\MvcBreadCrumbs\obj\Debug\MvcBreadCrumbs.pdb
+C:\projects\MvcBreadCrumbs\MvcBreadCrumbs\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\projects\MvcBreadCrumbs\MvcBreadCrumbs\bin\Debug\Microsoft.Web.Infrastructure.xml
