@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Routing;
-using System.Web.UI.HtmlControls;
 
 namespace MvcBreadCrumbs
 {
@@ -54,7 +48,7 @@ namespace MvcBreadCrumbs
             var state = StateManager.GetState(SessionProvider.SessionId);
 
             return string.Join(" > ",
-                state.Crumbs.Select(x => "<a href=\"" + x.Url + "\">" + x.Label + "</a>"));
+                state.Crumbs.Select(x => "<a href=\"" + x.Url + "\">" + x.Label + "</a>").ToArray());
 
         }
 
