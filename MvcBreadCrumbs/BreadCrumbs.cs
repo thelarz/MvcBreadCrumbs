@@ -40,7 +40,6 @@ namespace MvcBreadCrumbs
             
             var state = StateManager.GetState(SessionProvider.SessionId);
             //var ctx = state.Current.Context.RequestContext;
-
             
             state.Crumbs.ForEach(x =>
             {
@@ -50,6 +49,7 @@ namespace MvcBreadCrumbs
 
             return MvcHtmlString.Create(string.Join(" > ",
                 state.Crumbs.Select(x => "<a href=\"" + x.Url + "\">" + x.Label + "</a>"))).ToHtmlString();
+
         }
 
     }

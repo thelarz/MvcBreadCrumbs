@@ -15,10 +15,30 @@ namespace MvcBreadCrumbs.SampleWeb.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Get(int id)
         {
             BreadCrumbs.SetLabel("Sample" + id);
             return View(id);
         }
+
+        [HttpPost]
+        public ActionResult Post()
+        {
+            return RedirectToAction("Complete");
+        }
+
+        [HttpGet]
+        public ActionResult Complete()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ChildAction()
+        {
+            return PartialView();
+        }
+
     }
 }

@@ -8,7 +8,9 @@
 
 <p>You requested Id @Model</p>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Post","Sample")) 
 {
     <button type="submit">Submit</button>
 }
+
+@{ Html.RenderAction("ChildAction"); }
