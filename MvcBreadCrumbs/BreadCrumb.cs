@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Mvc.Html;
-using System.Web.Routing;
-using System.Web.UI.HtmlControls;
 
 namespace MvcBreadCrumbs
 {
@@ -47,7 +39,7 @@ namespace MvcBreadCrumbs
                 sb.Append("<li><a href=\"" + x.Url + "\">" + x.Label + "</a></li>");
             });
             sb.Append("</ul>");
-            return MvcHtmlString.Create(sb.ToString()).ToHtmlString();
+            return sb.ToString();
 
         }
         public static string DisplayRaw()
@@ -55,8 +47,8 @@ namespace MvcBreadCrumbs
 
             var state = StateManager.GetState(SessionProvider.SessionId);
 
-            return MvcHtmlString.Create(string.Join(" > ",
-                state.Crumbs.Select(x => "<a href=\"" + x.Url + "\">" + x.Label + "</a>"))).ToHtmlString();
+            return string.Join(" > ",
+                state.Crumbs.Select(x => "<a href=\"" + x.Url + "\">" + x.Label + "</a>").ToArray());
 
         }
 
