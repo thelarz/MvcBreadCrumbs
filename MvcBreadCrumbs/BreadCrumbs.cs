@@ -39,16 +39,17 @@ namespace MvcBreadCrumbs
         {
             
             var state = StateManager.GetState(SessionProvider.SessionId);
-            var ctx = state.Current.Context.RequestContext;
+            //var ctx = state.Current.Context.RequestContext;
 
             
             state.Crumbs.ForEach(x =>
             {
-                Trace.WriteLine("<a href=\"" + new UrlHelper(ctx).Action(x.Action, x.Controller) + "\">" + x.Label + "</a>");
+                Trace.WriteLine(x.Url);
+                //Trace.WriteLine("<a href=\"" + new UrlHelper(ctx).Action(x.Action, x.Controller) + "\">" + x.Label + "</a>");
             });
 
             return MvcHtmlString.Create(string.Join(" > ",
-                state.Crumbs.Select(x => "<a href=\"" + new UrlHelper(ctx).Action(x.Action, x.Controller) + "\">" + x.Label + "</a>"))).ToHtmlString();
+                state.Crumbs.Select(x => "<a href=\"" + x.Url + "\">" + x.Label + "</a>"))).ToHtmlString();
         }
 
     }

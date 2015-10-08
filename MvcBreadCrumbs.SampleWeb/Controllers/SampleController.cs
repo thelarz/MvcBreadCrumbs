@@ -17,6 +17,7 @@ namespace MvcBreadCrumbs.SampleWeb.Controllers
 
         public ActionResult Get(int id)
         {
+            BreadCrumbs.SetLabel("Sample" + id);
             return View(id);
         }
     }
