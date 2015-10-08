@@ -15,7 +15,7 @@ By default MvcBreadCrumbs ignores all Http Methods except for GET.
 
 By default, the MvcBreadCrumbs will display as a ul/li/anchor with the appropriate class name to have BootStrap style the breadcrumb for you.  You can thank me later.
 
-    @Html.Raw(BreadCrumbs.Display())
+    @Html.Raw(BreadCrumb.Display())
 
 ## Sample BreadCrumbs ##
 
@@ -49,7 +49,7 @@ This sample shows how you can control the bread crumb label directly with data f
         public ActionResult GetProduct(int id)
         {
             var model = db.GetProduct(id);
-            BreadCrumbs.SetLabel("Product" + model.ProductName);
+            BreadCrumb.SetLabel("Product" + model.ProductName);
             return View(model);
         }
     }
