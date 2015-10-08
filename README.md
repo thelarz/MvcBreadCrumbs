@@ -30,7 +30,7 @@ This sample will display bread crumbs for all routes using the Action name as th
         }
     }
 
-This sample shows how when the index route is executed, MvcBreadCrumb will clear the bread crumb stack and add a new entry with the label "Widgets" instead of the default label "Index".
+This sample demostrates how MvcBreadCrumb will clear the bread crumb stack and add a new entry with the label "Widgets" instead of the default label "Index".
 
     public class SampleController : Controller
     {
@@ -49,7 +49,7 @@ This sample shows how you can control the bread crumb label directly with data f
         public ActionResult GetProduct(int id)
         {
             var model = db.GetProduct(id);
-            BreadCrumb.SetLabel("Product" + model.ProductName);
+            BreadCrumb.SetLabel("Product " + model.ProductName);
             return View(model);
         }
     }
