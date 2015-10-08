@@ -39,13 +39,21 @@ namespace MvcBreadCrumbs
         {
             
             var state = StateManager.GetState(SessionProvider.SessionId);
-            //var ctx = state.Current.Context.RequestContext;
-            
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<ul class=\"breadcrumb\">");
             state.Crumbs.ForEach(x =>
             {
-                Trace.WriteLine(x.Url);
-                //Trace.WriteLine("<a href=\"" + new UrlHelper(ctx).Action(x.Action, x.Controller) + "\">" + x.Label + "</a>");
+                sb.Append("<li><a href=\"" + x.Url + "\">" + x.Label + "</a></li>");
             });
+            sb.Append("</ul>");
+            return MvcHtmlString.Create(sb.ToString()).ToHtmlString();
+
+        }
+        public static string DisplayRaw()
+        {
+
+            var state = StateManager.GetState(SessionProvider.SessionId);
 
             return MvcHtmlString.Create(string.Join(" > ",
                 state.Crumbs.Select(x => "<a href=\"" + x.Url + "\">" + x.Label + "</a>"))).ToHtmlString();
