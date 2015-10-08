@@ -15,6 +15,7 @@ namespace MvcBreadCrumbs
     {
 
         public bool Clear { get; set; }
+        public string Label { get; set; }
         public static IProvideBreadCrumbsSession _SessionProvider { get; set; }
 
         public static IProvideBreadCrumbsSession SessionProvider
@@ -44,7 +45,7 @@ namespace MvcBreadCrumbs
             }
 
             var state = StateManager.GetState(SessionProvider.SessionId);
-            state.Push(filterContext);
+            state.Push(filterContext, Label);
 
         }
 

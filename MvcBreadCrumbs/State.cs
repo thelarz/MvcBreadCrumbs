@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Web.Mvc;
+using Microsoft.SqlServer.Server;
 
 namespace MvcBreadCrumbs
 {
@@ -15,7 +17,7 @@ namespace MvcBreadCrumbs
         public StateEntry Current { get; set; }
        
 
-        public void Push(ActionExecutingContext context)
+        public void Push(ActionExecutingContext context, string label)
         {
 
             var key =
@@ -41,9 +43,12 @@ namespace MvcBreadCrumbs
                 }
                 Crumbs = newCrumbs;
             }
-                
+
             Current = new StateEntry().WithKey(key)
-                .SetContext(context).WithUrl(context.HttpContext.Request.Url.ToString());
+                .SetContext(context)
+                .WithUrl(context.HttpContext.Request.Url.ToString())
+                .WithLabel(label);
+                
             Crumbs.Add(Current);
 
         }
@@ -75,10 +80,17 @@ namespace MvcBreadCrumbs
             return this;
         }
 
+        public StateEntry WithLabel(string label)
+        {
+            Label = label ?? Label;
+            return this;
+        }
+
+
         public StateEntry SetContext(ActionExecutingContext context)
         {
             Context = context;
-            Label = (string) context.RouteData.Values["action"];
+            Label = Label ?? (string) context.RouteData.Values["action"];
             return this;
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Web;
 using System.Web.Mvc;
 
@@ -28,7 +29,7 @@ namespace MvcBreadCrumbs.SampleWeb.Controllers
             return RedirectToAction("Complete");
         }
 
-        [HttpGet]
+        [HttpGet,BreadCrumb(Label="Congratulations!")]
         public ActionResult Complete()
         {
             return View();
