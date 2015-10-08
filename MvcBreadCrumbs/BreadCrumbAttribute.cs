@@ -9,9 +9,11 @@ using System.Web.Mvc;
 namespace MvcBreadCrumbs
 {
    
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
     public class BreadCrumbAttribute : ActionFilterAttribute
     {
+
+        public bool Clear { get; set; }
         public static IProvideBreadCrumbsSession _SessionProvider { get; set; }
 
         public static IProvideBreadCrumbsSession SessionProvider
@@ -28,9 +30,19 @@ namespace MvcBreadCrumbs
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+
+            if (Clear)
+            {
+                StateManager.RemoveState(SessionProvider.SessionId);
+            }
+
             var state = StateManager.GetState(SessionProvider.SessionId);
             state.Push(filterContext);
+
         }
+
+      
+
     }
 
     //[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
