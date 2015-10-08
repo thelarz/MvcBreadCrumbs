@@ -3,7 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcBreadCrumbs", "MvcBreadCrumbs\MvcBreadCrumbs.csproj", "{BE48AD0B-E472-4F94-80A5-BCC1F0EBF13E}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE48AD0B-E472-4F94-80A5-BCC1F0EBF13E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE48AD0B-E472-4F94-80A5-BCC1F0EBF13E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE48AD0B-E472-4F94-80A5-BCC1F0EBF13E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE48AD0B-E472-4F94-80A5-BCC1F0EBF13E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

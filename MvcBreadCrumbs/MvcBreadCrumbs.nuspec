@@ -1,0 +1,23 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>MvcBreadCrumbs</id>
+    <version>1.0.0.0</version>
+    <title>MvcBreadCrumbs</title>
+    <authors>McNutt Consulting</authors>
+    <owners>McNutt Consulting</owners>
+    <projectUrl>https://github.com/thelarz/MvcBreadCrumbs</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A simple way to add dynamic, code-defined bread crumbs to new or existing ASP.NET MVC Application</description>
+    <summary>Allows developers to automatically render bread crumbs on their pages and dynamically control the text of the bread crumb</summary>
+    <language>es-US</language>
+    <tags>MVC breadcrumb bread crumb dynamic code defined</tags>
+    <dependencies>
+      <dependency id="Microsoft.AspNet.Mvc" version="3.0.2" />
+    </dependencies>
+  </metadata>
+  <files>
+	  <file src="obj\Debug\MvcBreadCrumbs.dll" target="lib" />
+	  <file src="obj\Debug\MvcBreadCrumbs.pdb" target="lib" />
+  </files>
+</package>
