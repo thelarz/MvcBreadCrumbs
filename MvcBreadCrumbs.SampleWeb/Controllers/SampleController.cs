@@ -22,7 +22,7 @@ namespace MvcBreadCrumbs.SampleWeb.Controllers
             BreadCrumbs.SetLabel("Sample" + id);
             return View(id);
         }
-
+        
         [HttpPost]
         public ActionResult Post()
         {

@@ -7,17 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcBreadCrumbs", "MvcBreadC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcBreadCrumbs.SampleWeb", "MvcBreadCrumbs.SampleWeb\MvcBreadCrumbs.SampleWeb.csproj", "{BA7CCDF1-76F2-4337-9739-68EFFE210244}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{0FA7498F-3A4D-4778-8AB2-64AF54A60E42}"
-	ProjectSection(SolutionItems) = preProject
-		PublishScripts\AzureVMPublishModule.psm1 = PublishScripts\AzureVMPublishModule.psm1
-		PublishScripts\Publish-WebApplicationVM.ps1 = PublishScripts\Publish-WebApplicationVM.ps1
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{A239C6BC-A319-4AF7-A2F0-C85BA455CD26}"
-	ProjectSection(SolutionItems) = preProject
-		PublishScripts\Configurations\MvcBreadCrumbsSampleWeb-WAWS-dev.json = PublishScripts\Configurations\MvcBreadCrumbsSampleWeb-WAWS-dev.json
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,8 +24,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{A239C6BC-A319-4AF7-A2F0-C85BA455CD26} = {0FA7498F-3A4D-4778-8AB2-64AF54A60E42}
 	EndGlobalSection
 EndGlobal
