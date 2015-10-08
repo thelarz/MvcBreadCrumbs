@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BreadCrumbs.cs" />
+    <Compile Include="BreadCrumb.cs" />
     <Compile Include="HttpSessionProvider.cs" />
     <Compile Include="IProvideBreadCrumbsSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

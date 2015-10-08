@@ -12,12 +12,12 @@ using System.Web.UI.HtmlControls;
 
 namespace MvcBreadCrumbs
 {
-    public class BreadCrumbs
+    public class BreadCrumb
     {
 
-        public static IProvideBreadCrumbsSession _SessionProvider { get; set; }
+        private static IProvideBreadCrumbsSession _SessionProvider { get; set; }
 
-        public static IProvideBreadCrumbsSession SessionProvider
+        private static IProvideBreadCrumbsSession SessionProvider
         {
             get
             {

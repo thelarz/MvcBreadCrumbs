@@ -19,7 +19,7 @@ namespace MvcBreadCrumbs.SampleWeb.Controllers
         [HttpGet]
         public ActionResult Get(int id)
         {
-            BreadCrumbs.SetLabel("Sample" + id);
+            BreadCrumb.SetLabel("Sample" + id);
             return View(id);
         }
         

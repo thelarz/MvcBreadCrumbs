@@ -20,7 +20,7 @@ namespace MvcBreadCrumbs.SampleWeb.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-            BreadCrumbs.SetLabel("About BreadCrumbs");
+            BreadCrumb.SetLabel("About BreadCrumbs");
             return View();
         }
 
