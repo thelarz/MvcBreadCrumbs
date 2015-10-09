@@ -13,7 +13,7 @@
     <language>es-US</language>
     <tags>MVC breadcrumb bread crumb dynamic code defined</tags>
     <dependencies>
-      <dependency id="Microsoft.AspNet.Mvc" version="3.0.2" />
+      <dependency id="Microsoft.AspNet.Mvc" version="4.0" />
     </dependencies>
   </metadata>
   <files>
