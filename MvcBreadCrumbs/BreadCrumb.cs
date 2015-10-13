@@ -32,6 +32,9 @@ namespace MvcBreadCrumbs
             
             var state = StateManager.GetState(SessionProvider.SessionId);
 
+            if (state.Crumbs != null && !state.Crumbs.Any())
+                return "<!-- BreadCrumbs stack is empty -->";
+
             StringBuilder sb = new StringBuilder();
             sb.Append("<ul class=\"breadcrumb\">");
             state.Crumbs.ForEach(x =>
@@ -46,6 +49,9 @@ namespace MvcBreadCrumbs
         {
 
             var state = StateManager.GetState(SessionProvider.SessionId);
+
+            if (state.Crumbs != null && !state.Crumbs.Any())
+                return "<!-- BreadCrumbs stack is empty -->";
 
             return string.Join(" > ",
                 state.Crumbs.Select(x => "<a href=\"" + x.Url + "\">" + x.Label + "</a>").ToArray());
