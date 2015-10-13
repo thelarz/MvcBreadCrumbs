@@ -19,7 +19,7 @@ By default, the MvcBreadCrumbs will display as a ul/li/anchor with the appropria
 
 ## Sample BreadCrumbs ##
 
-This sample will display bread crumbs for all routes using the Action name as the BreadCrumb label.
+This sample will display bread crumbs for all GET routes using the Action name as the BreadCrumb label.
 
     [BreadCrumb]
     public class SampleController : Controller
