@@ -1,7 +1,7 @@
 # MvcBreadCrumbs
 MvcBreadCrumbs is a [NuGet](http://nuget.org/) package that allows you to specify custom bread crumb definitions at the controller and route level. 
 
-## Integrating MvcRouteFlow into your web project
+## Integrating MvcBreadCrumbs into your web project
 
 It's simple: 
 
