@@ -27,6 +27,11 @@ namespace MvcBreadCrumbs
             state.Current.Label = label;
         }
 
+        public static void Clear()
+        {
+            StateManager.RemoveState(SessionProvider.SessionId);
+        }
+
         public static string Display()
         {
             
