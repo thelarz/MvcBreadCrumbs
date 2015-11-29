@@ -20,6 +20,20 @@ namespace MvcBreadCrumbs
                 return new HttpSessionProvider();
             }
         }
+        public static void Add(string url, string label)
+        {
+            // get a key for the Url.
+            var key =
+               url
+               .ToLower()
+               .GetHashCode();
+
+            var current = new StateEntry().WithKey(key)
+             .WithUrl(url)
+             .WithLabel(label);
+
+            StateManager.GetState(SessionProvider.SessionId).Crumbs.Add(current);
+        }
 
         public static void SetLabel(string label)
         {
