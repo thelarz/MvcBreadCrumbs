@@ -39,7 +39,14 @@ namespace MvcBreadCrumbs
             sb.Append("<ol class=\"breadcrumb\">");
             state.Crumbs.ForEach(x =>
             {
-                sb.Append("<li><a href=\"" + x.Url + "\">" + x.Label + "</a></li>");
+                if (IsCurrentPage(x.Key))
+                {
+                    sb.Append("<li class='active'>" + x.Label + "</li>");
+                }
+                else
+                {
+                    sb.Append("<li><a href=\"" + x.Url + "\">" + x.Label + "</a></li>");
+                }
             });
             sb.Append("</ol>");
             return sb.ToString();
@@ -56,6 +63,15 @@ namespace MvcBreadCrumbs
             return string.Join(" > ",
                 state.Crumbs.Select(x => "<a href=\"" + x.Url + "\">" + x.Label + "</a>").ToArray());
 
+        }
+
+        private static bool IsCurrentPage(int compareKey)
+        {
+            var key =
+                System.Web.HttpContext.Current.Request.Url.ToString()
+                .ToLower()
+                .GetHashCode();
+            return key == compareKey;
         }
 
     }
