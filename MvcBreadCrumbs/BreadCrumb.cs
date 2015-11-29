@@ -36,12 +36,12 @@ namespace MvcBreadCrumbs
                 return "<!-- BreadCrumbs stack is empty -->";
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("<ul class=\"breadcrumb\">");
+            sb.Append("<ol class=\"breadcrumb\">");
             state.Crumbs.ForEach(x =>
             {
                 sb.Append("<li><a href=\"" + x.Url + "\">" + x.Label + "</a></li>");
             });
-            sb.Append("</ul>");
+            sb.Append("</ol>");
             return sb.ToString();
 
         }
