@@ -54,6 +54,18 @@ This sample shows how you can control the bread crumb label directly with data f
         }
     }
 
+This sample demostrates how clear the current breadcrumb stack with code and also how to push a custom url onto the stack with code.
+
+    public class SampleController : Controller
+    {
+        public ActionResult ClearIt()
+        {
+            BreadCrumb.Clear();
+            BreadCrumb.Add(Url.Action("SomeAction", "Home"), "NewRoot");
+            return View();
+        }
+    }
+
 
 
 
