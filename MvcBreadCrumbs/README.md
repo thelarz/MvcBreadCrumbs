@@ -54,7 +54,7 @@ This sample shows how you can control the bread crumb label directly with data f
         }
     }
 
-This sample demostrates how clear the current breadcrumb stack with code and also how to push a custom url onto the stack with code.
+This sample demostrates how to clear the current breadcrumb stack with code and also how to push a custom URL onto the stack with code.
 
     public class SampleController : Controller
     {
