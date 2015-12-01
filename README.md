@@ -1,7 +1,7 @@
 # MvcBreadCrumbs
 MvcBreadCrumbs is a [NuGet](http://nuget.org/) package that allows you to specify custom bread crumb definitions at the controller and route level. 
 
-## Integrating MvcBreadCrumbs into your web project
+## Integrating MvcRouteFlow into your web project
 
 It's simple: 
 
@@ -19,7 +19,7 @@ By default, the MvcBreadCrumbs will display as a ul/li/anchor with the appropria
 
 ## Sample BreadCrumbs ##
 
-This sample will display bread crumbs for all GET routes using the Action name as the BreadCrumb label.
+This sample will display bread crumbs for all routes using the Action name as the BreadCrumb label.
 
     [BreadCrumb]
     public class SampleController : Controller
@@ -51,6 +51,18 @@ This sample shows how you can control the bread crumb label directly with data f
             var model = db.GetProduct(id);
             BreadCrumb.SetLabel("Product " + model.ProductName);
             return View(model);
+        }
+    }
+
+This sample demostrates how clear the current breadcrumb stack with code and also how to push a custom url onto the stack with code.
+
+    public class SampleController : Controller
+    {
+        public ActionResult ClearIt()
+        {
+            BreadCrumb.Clear();
+            BreadCrumb.Add(Url.Action("SomeAction", "Home"), "NewRoot");
+            return View();
         }
     }
 
