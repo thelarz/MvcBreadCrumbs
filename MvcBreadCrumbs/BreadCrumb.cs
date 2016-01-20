@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -6,7 +8,6 @@ namespace MvcBreadCrumbs
 {
     public class BreadCrumb
     {
-
         private static IProvideBreadCrumbsSession _SessionProvider { get; set; }
 
         private static IProvideBreadCrumbsSession SessionProvider
@@ -44,6 +45,28 @@ namespace MvcBreadCrumbs
         public static void Clear()
         {
             StateManager.RemoveState(SessionProvider.SessionId);
+        }
+
+        public static StateEntry GetCurrentUrl()
+        {
+            return StateManager.GetState(SessionProvider.SessionId).Current;
+        }
+
+        public static IEnumerable<string> GetBreadcrumOrderedUrls()
+        {
+            return StateManager.GetState(SessionProvider.SessionId).Crumbs.Select(s=>s.Url);
+        }
+
+        public static string GetPreviousUrl()
+        {
+            var previousPage = StateManager.GetState(SessionProvider.SessionId).Crumbs;
+            var updatedList = new List<StateEntry>(previousPage);
+            updatedList.Reverse();
+
+            if(updatedList.Count>1)
+                return updatedList.Skip(1).First().Url;
+
+            return null;
         }
 
         public static string Display()
