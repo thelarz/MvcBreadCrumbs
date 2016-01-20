@@ -52,7 +52,7 @@ namespace MvcBreadCrumbs
             return StateManager.GetState(SessionProvider.SessionId).Current.Url;
         }
 
-        public static IEnumerable<string> GetBreadcrumOrderedUrls()
+        public static IEnumerable<string> GetBreadCrumOrderedUrls()
         {
             return StateManager.GetState(SessionProvider.SessionId).Crumbs.Select(s=>s.Url);
         }
