@@ -47,9 +47,9 @@ namespace MvcBreadCrumbs
             StateManager.RemoveState(SessionProvider.SessionId);
         }
 
-        public static StateEntry GetCurrentUrl()
+        public static string GetCurrentUrl()
         {
-            return StateManager.GetState(SessionProvider.SessionId).Current;
+            return StateManager.GetState(SessionProvider.SessionId).Current.Url;
         }
 
         public static IEnumerable<string> GetBreadcrumOrderedUrls()
