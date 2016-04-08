@@ -151,7 +151,7 @@ namespace MvcBreadCrumbs
         private static bool IsCurrentPage(int compareKey)
         {
             var key =
-                System.Web.HttpContext.Current.Request.Url.ToString()
+                System.Web.HttpContext.Current.Request.Url.LocalPath
                 .ToLower()
                 .GetHashCode();
             return key == compareKey;

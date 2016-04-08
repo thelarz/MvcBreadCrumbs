@@ -21,7 +21,7 @@ namespace MvcBreadCrumbs
         {
 
             var key =
-                context.HttpContext.Request.Url.ToString()
+                context.HttpContext.Request.Url.LocalPath
                 .ToLower()
                 .GetHashCode();
 
