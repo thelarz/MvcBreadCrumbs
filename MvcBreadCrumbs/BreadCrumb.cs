@@ -120,15 +120,15 @@ namespace MvcBreadCrumbs
 
             StringBuilder sb = new StringBuilder();
             sb.Append("<ol class=\"breadcrumb\">");
-            state.Crumbs.ForEach(x =>
+            state.Crumbs.Select(x => new { Entry = x, IsCurrent = IsCurrentPage(x.Key) }).OrderBy(x => x.IsCurrent).ToList().ForEach(x =>
             {
-                if (IsCurrentPage(x.Key))
+                if (x.IsCurrent)
                 {
-                    sb.Append("<li class='active'>" + x.Label + "</li>");
+                    sb.Append("<li class='active'>" + x.Entry.Label + "</li>");
                 }
                 else
                 {
-                    sb.Append("<li><a href=\"" + x.Url + "\">" + x.Label + "</a></li>");
+                    sb.Append("<li><a href=\"" + x.Entry.Url + "\">" + x.Entry.Label + "</a></li>");
                 }
             });
             sb.Append("</ol>");
