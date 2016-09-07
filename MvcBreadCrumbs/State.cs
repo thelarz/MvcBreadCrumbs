@@ -1,25 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Reflection.Emit;
-using System.Runtime.CompilerServices;
 using System.Web.Mvc;
-using Microsoft.SqlServer.Server;
 
 namespace MvcBreadCrumbs
 {
-
     public class State
     {
-        
         public string SessionCookie { get; set; }
         public List<StateEntry> Crumbs { get; set; }
         public StateEntry Current { get; set; }
-       
 
         public void Push(ActionExecutingContext context, string label)
         {
-
             var key =
                 context.HttpContext.Request.Url.LocalPath
                 .ToLower()
@@ -50,7 +43,6 @@ namespace MvcBreadCrumbs
                 .WithLabel(label);
                 
             Crumbs.Add(Current);
-
         }
         
         public State(string cookie)
@@ -58,7 +50,6 @@ namespace MvcBreadCrumbs
             SessionCookie = cookie;
             Crumbs = new List<StateEntry>();
         }
-
     }
 
     public class StateEntry
@@ -90,7 +81,15 @@ namespace MvcBreadCrumbs
         public StateEntry SetContext(ActionExecutingContext context)
         {
             Context = context;
-            Label = Label ?? (string) context.RouteData.Values["action"];
+            var type = Context.Controller.GetType();
+            var actionName = (string)Context.RouteData.Values["Action"];
+            var method = type.GetMethod(actionName);
+            var atts = method.GetCustomAttributes(typeof(DisplayAttribute), false);
+            if (atts.Length > 0)
+            {
+                Label = ((DisplayAttribute)atts[0]).GetName();
+            }
+            Label = Label ?? (string)context.RouteData.Values["Action"];
             return this;
         }
 
@@ -109,6 +108,5 @@ namespace MvcBreadCrumbs
                 return (string)Context.RouteData.Values["action"];
             }
         }
-
     }
 }
