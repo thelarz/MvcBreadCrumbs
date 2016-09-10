@@ -110,7 +110,7 @@ namespace MvcBreadCrumbs
             return StateManager.GetState(SessionProvider.SessionId).Crumbs.Select(s => new RedirectResult(s.Url));
         }
 
-        public static string Display()
+        public static string Display(string cssClassOverride = "breadcrumb")
         {
             
             var state = StateManager.GetState(SessionProvider.SessionId);
@@ -119,7 +119,9 @@ namespace MvcBreadCrumbs
                 return "<!-- BreadCrumbs stack is empty -->";
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("<ol class=\"breadcrumb\">");
+            sb.Append("<ol class=\"");
+            sb.Append(cssClassOverride);
+            sb.Append("\">");
             state.Crumbs.Select(x => new { Entry = x, IsCurrent = IsCurrentPage(x.Key) }).OrderBy(x => x.IsCurrent).ToList().ForEach(x =>
             {
                 if (x.IsCurrent)
