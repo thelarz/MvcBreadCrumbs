@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Web.Mvc;
 
 namespace MvcBreadCrumbs
@@ -83,13 +84,12 @@ namespace MvcBreadCrumbs
             Context = context;
             var type = Context.Controller.GetType();
             var actionName = (string)Context.RouteData.Values["Action"];
-            var method = type.GetMethod(actionName);
-            var atts = method.GetCustomAttributes(typeof(DisplayAttribute), false);
-            if (atts.Length > 0)
-            {
-                Label = ((DisplayAttribute)atts[0]).GetName();
-            }
-            Label = Label ?? (string)context.RouteData.Values["Action"];
+            var labelQuery =
+                from m in type.FindMembers(MemberTypes.Method, BindingFlags.Public | BindingFlags.Instance, (memberInfo, _) => memberInfo.Name == actionName, null)
+                let atts = m.GetCustomAttributes(typeof(DisplayAttribute), false)
+                where atts.Length > 0
+                select ((DisplayAttribute)atts[0]).GetName();
+            Label = labelQuery.FirstOrDefault() ?? (string)context.RouteData.Values["Action"];
             return this;
         }
 
