@@ -9,7 +9,10 @@ namespace MvcBreadCrumbs
     {
 
         public bool Clear { get; set; }
+
         public string Label { get; set; }
+
+        public Type ResourceType { get; set; }
 
         private static IProvideBreadCrumbsSession _SessionProvider { get; set; }
 
@@ -40,7 +43,7 @@ namespace MvcBreadCrumbs
             }
 
             var state = StateManager.GetState(SessionProvider.SessionId);
-            state.Push(filterContext, Label);
+            state.Push(filterContext, Label, ResourceType);
 
         }
 

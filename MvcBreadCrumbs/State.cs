@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace MvcBreadCrumbs
         public List<StateEntry> Crumbs { get; set; }
         public StateEntry Current { get; set; }
 
-        public void Push(ActionExecutingContext context, string label)
+        public void Push(ActionExecutingContext context, string label, Type resourceType )
         {
             var key =
                 context.HttpContext.Request.Url.LocalPath
@@ -41,7 +42,7 @@ namespace MvcBreadCrumbs
             Current = new StateEntry().WithKey(key)
                 .SetContext(context)
                 .WithUrl(context.HttpContext.Request.Url.ToString())
-                .WithLabel(label);
+                .WithLabel(ResourceHelper.GetResourceLookup(resourceType, label));
                 
             Crumbs.Add(Current);
         }
