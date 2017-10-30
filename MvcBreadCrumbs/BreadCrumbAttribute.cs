@@ -3,50 +3,60 @@ using System.Web.Mvc;
 
 namespace MvcBreadCrumbs
 {
-   
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
-    public class BreadCrumbAttribute : ActionFilterAttribute
-    {
 
-        public bool Clear { get; set; }
+	[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
+	public class BreadCrumbAttribute : ActionFilterAttribute
+	{
 
-        public string Label { get; set; }
+		public bool Clear { get; set; }
 
-        public Type ResourceType { get; set; }
+		public string Label { get; set; }
 
-        private static IProvideBreadCrumbsSession _SessionProvider { get; set; }
+		public Type ResourceType { get; set; }
 
-        private static IProvideBreadCrumbsSession SessionProvider
-        {
-            get
-            {
-                if (_SessionProvider != null)
-                {
-                    return _SessionProvider;
-                }
-                return new HttpSessionProvider();
-            }
-        }
+		/// <summary>
+		/// If set to true, prevents the <see cref="BreadCrumbAttribute"/> at the controller level to process the action.
+		/// Use when you want to add dynamic breadcrumb trails in code 
+		/// but still allows other actions to use the attribute at the controller level.
+		/// </summary>
+		public bool Manual { get; set; }
 
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
+		private static IProvideBreadCrumbsSession _SessionProvider { get; set; }
 
-            if (filterContext.IsChildAction)
-                return;
+		private static IProvideBreadCrumbsSession SessionProvider
+		{
+			get
+			{
+				if (_SessionProvider != null)
+				{
+					return _SessionProvider;
+				}
+				return new HttpSessionProvider();
+			}
+		}
 
-            if (filterContext.HttpContext.Request.HttpMethod != "GET")
-                return;
+		public override void OnActionExecuting(ActionExecutingContext filterContext)
+		{
 
-            if (Clear)
-            {
-                StateManager.RemoveState(SessionProvider.SessionId);
-            }
+			if (filterContext.IsChildAction)
+				return;
 
-            var state = StateManager.GetState(SessionProvider.SessionId);
-            state.Push(filterContext, Label, ResourceType);
+			if (filterContext.HttpContext.Request.HttpMethod != "GET")
+				return;
 
-        }
+			if (Clear)
+			{
+				StateManager.RemoveState(SessionProvider.SessionId);
+			}
 
-    }
-    
+			if (Manual)
+				return;
+
+			var state = StateManager.GetState(SessionProvider.SessionId);
+			state.Push(filterContext, Label, ResourceType);
+
+		}
+
+	}
+
 }
