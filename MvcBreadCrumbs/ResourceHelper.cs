@@ -31,7 +31,9 @@ namespace MvcBreadCrumbs
                 return (string)property.GetValue(null, null);
             }
 
-            return resourceName ?? string.Empty;
+            //return resourceName ?? string.Empty;
+            //returning empty string from GetResourceLookup fails the null check inside WithLabel Method.Asad[09-03-2017]
+            return resourceName;
         }
     }
 }
