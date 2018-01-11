@@ -3,60 +3,66 @@ using System.Web.Mvc;
 
 namespace MvcBreadCrumbs
 {
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
+    public class BreadCrumbAttribute : ActionFilterAttribute
+    {
+        public bool Clear { get; set; }
 
-	[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
-	public class BreadCrumbAttribute : ActionFilterAttribute
-	{
+        public string Label { get; set; }
 
-		public bool Clear { get; set; }
+        /// <summary>
+        /// If set to true, prevents the <see cref="BreadCrumbAttribute"/> at the controller level to process the action.
+        /// Use when you want to add dynamic breadcrumb trails in code
+        /// but still allows other actions to use the attribute at the controller level.
+        /// </summary>
+        public bool Manual { get; set; }
 
-		public string Label { get; set; }
+        public Type ResourceType { get; set; }
+        private static IProvideBreadCrumbsSession _SessionProvider { get; set; }
 
-		public Type ResourceType { get; set; }
+        private static IProvideBreadCrumbsSession SessionProvider
+        {
+            get
+            {
+                if (_SessionProvider != null)
+                {
+                    return _SessionProvider;
+                }
+                return new HttpSessionProvider();
+            }
+        }
 
-		/// <summary>
-		/// If set to true, prevents the <see cref="BreadCrumbAttribute"/> at the controller level to process the action.
-		/// Use when you want to add dynamic breadcrumb trails in code 
-		/// but still allows other actions to use the attribute at the controller level.
-		/// </summary>
-		public bool Manual { get; set; }
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (filterContext.IsChildAction)
+                return;
 
-		private static IProvideBreadCrumbsSession _SessionProvider { get; set; }
+            if (filterContext.HttpContext.Request.HttpMethod != "GET")
+                return;
 
-		private static IProvideBreadCrumbsSession SessionProvider
-		{
-			get
-			{
-				if (_SessionProvider != null)
-				{
-					return _SessionProvider;
-				}
-				return new HttpSessionProvider();
-			}
-		}
+            if (Clear)
+            {
+                StateManager.RemoveState(SessionProvider.SessionId);
+            }
 
-		public override void OnActionExecuting(ActionExecutingContext filterContext)
-		{
+            if (Manual)
+                return;
 
-			if (filterContext.IsChildAction)
-				return;
+            var state = StateManager.GetState(SessionProvider.SessionId);
+            state.Push(filterContext, Label, ResourceType);
+        }
 
-			if (filterContext.HttpContext.Request.HttpMethod != "GET")
-				return;
+        public override void OnResultExecuted(ResultExecutedContext filterContext)
+        {
+            if (filterContext.Exception != null)
+            {
+                //if we have an exception on the result (for ANY reason), let's make sure that we don't
+                //track this failing page on the breadcrumb
+                var state = StateManager.GetState(SessionProvider.SessionId);
+                state.OnErrorRemoveCrumb(filterContext);
+            }
 
-			if (Clear)
-			{
-				StateManager.RemoveState(SessionProvider.SessionId);
-			}
-
-			if (Manual)
-				return;
-
-			var state = StateManager.GetState(SessionProvider.SessionId);
-			state.Push(filterContext, Label, ResourceType);
-
-		}
-
-	}
-
+            base.OnResultExecuted(filterContext);
+        }
+    }
 }
