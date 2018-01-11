@@ -68,9 +68,30 @@ namespace MvcBreadCrumbs
 				.WithLevel(levels)
 				.WithLabel(ResourceHelper.GetResourceLookup(resourceType, label));
 
-			Crumbs.Add(Current);
-		}
-	}
+            Crumbs.Add(Current);
+        }
+
+
+        /// <summary>
+        /// provides a way to remove a crumb from the crumbs list
+        /// </summary>
+        /// <param name="context"></param>
+        public void OnErrorRemoveCrumb(ResultExecutedContext context)
+        {
+            var key =
+                context.HttpContext.Request.Url.LocalPath
+                .ToLower()
+                .GetHashCode();
+
+            if (Crumbs.Any(x => x.Key == key))
+            {
+                var crumb = Crumbs.Single(x => x.Key == key);
+                Crumbs.Remove(crumb);
+            }
+        }
+
+     
+    }
 
 	public class StateEntry
 	{

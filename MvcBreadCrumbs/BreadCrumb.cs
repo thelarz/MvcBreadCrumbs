@@ -39,6 +39,15 @@ namespace MvcBreadCrumbs
 
 		public static void Add(string url, string label)
 		{
+            // get a key for the Url.
+            var key =
+               url
+               .ToLower()
+               .GetHashCode();
+
+            var current = new StateEntry().WithKey(key)
+             .WithUrl(url)
+             .WithLabel(label);
 			var state = StateManager.GetState(SessionProvider.SessionId);
 			state.Push(url, label);
 		}
@@ -145,21 +154,24 @@ namespace MvcBreadCrumbs
 			return sb.ToString();
 
 		}
-		public static string DisplayRaw()
-		{
+        public static string DisplayRaw(string crumbConcatenator = ">")
+        {
+            var state = StateManager.GetState(SessionProvider.SessionId);
 
-			var state = StateManager.GetState(SessionProvider.SessionId);
-
-			if (state.Crumbs != null && !state.Crumbs.Any())
-				return "<!-- BreadCrumbs stack is empty -->";
+            if (state.Crumbs != null && !state.Crumbs.Any())
+                return "<!-- BreadCrumbs stack is empty -->";
 
 			// don't allow blank labels to propagate outside
 			state.Crumbs.ToList().ForEach(x => { x.Label = string.IsNullOrWhiteSpace(x.Label) ? x.Action : x.Label; });
-
-			return string.Join(" > ",
-				state.Crumbs.Select(x => "<a href=\"" + x.Url + "\">" + x.Label + "</a>").ToArray());
-
-		}
+            return string.Join("  " + crumbConcatenator + " ",
+                state.Crumbs.Select(x =>
+                {
+                    if (IsCurrentPage(x.Key))
+                        return x.Label;
+                    else
+                        return "<a href=\"" + x.Url + "\">" + x.Label + "</a>";
+                }).ToArray());
+        }
 
 		private static bool IsCurrentPage(int compareKey)
 		{
